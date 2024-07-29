@@ -1,15 +1,12 @@
 package com.mtjikuzu.carddatabase;
 
-import com.mtjikuzu.carddatabase.domain.Car;
-import com.mtjikuzu.carddatabase.domain.CarRepository;
+import com.mtjikuzu.carddatabase.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import com.mtjikuzu.carddatabase.domain.Owner;
-import com.mtjikuzu.carddatabase.domain.OwnerRepository;
 
 import java.util.Arrays;
 
@@ -23,9 +20,11 @@ public class CardatabaseApplication implements CommandLineRunner {
 
         private CarRepository repository;
         private OwnerRepository ownerRepository;
-        public CardatabaseApplication(CarRepository repository, OwnerRepository ownerRepository ) {
+        private final AppUserRepository userRepository;
+        public CardatabaseApplication(CarRepository repository, OwnerRepository ownerRepository, AppUserRepository userRepository) {
             this.repository = repository;
             this.ownerRepository = ownerRepository;
+            this.userRepository = userRepository;
         }
 
 
@@ -52,6 +51,14 @@ public class CardatabaseApplication implements CommandLineRunner {
         for (Car car : repository.findAll()) {
             logger.info("Brand: {}, Model: {}", car.getBrand(), car.getModel());
         }
+
+        // Username: user, password: password
+        userRepository.save(new AppUser("user",
+                "$2a$12$XquEHx5WmeddXPdRxy6lFOAM2aLi2Mza9gMlJOKeEyYgwBK3kRqX2", "USER"));
+        // Username: admin, password: password
+        userRepository.save(new AppUser("admin",
+                "$2a$12$XquEHx5WmeddXPdRxy6lFOAM2aLi2Mza9gMlJOKeEyYgwBK3kRqX2", "ADMIN"));
+
 
     }
 
