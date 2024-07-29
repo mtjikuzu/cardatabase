@@ -3,7 +3,6 @@ package com.mtjikuzu.carddatabase;
 import com.mtjikuzu.carddatabase.domain.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -18,9 +17,9 @@ public class CardatabaseApplication implements CommandLineRunner {
              LoggerFactory.getLogger
                  (CardatabaseApplication.class);
 
-        private CarRepository repository;
+        private  CarRepository repository;
         private OwnerRepository ownerRepository;
-        private final AppUserRepository userRepository;
+        private  AppUserRepository userRepository;
         public CardatabaseApplication(CarRepository repository, OwnerRepository ownerRepository, AppUserRepository userRepository) {
             this.repository = repository;
             this.ownerRepository = ownerRepository;
@@ -36,10 +35,9 @@ public class CardatabaseApplication implements CommandLineRunner {
 
     /**
      * @param args incoming main method arguments
-     * @throws Exception
      */
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         Owner owner1 = new Owner("John", "Johnson");
         Owner owner2 = new Owner("Mary", "Robinson");
         ownerRepository.saveAll(Arrays.asList(owner1, owner2));
